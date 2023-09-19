@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 在这里包含Google Analytics跟踪代码 -->
+    <!-- ... -->
+</head>
+<body>
+    <h1>Hello from Space! 🚀</h1>
+
+    <!-- 添加一个按钮，当点击时触发Google Analytics事件 -->
+    <button onclick="sendAnalyticsEvent()">Click Me</button>
+
+    <!-- Google标签（gtag.js） -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEC1VCR28C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-MEC1VCR28C');
+        
+        // 发送Google Analytics事件的函数
+        function sendAnalyticsEvent() {
+            gtag('event', 'button_click', {
+                'event_category': '按钮点击',
+                'event_label': '按钮被点击',
+            });
+        }
+    </script>
+</body>
+</html>
