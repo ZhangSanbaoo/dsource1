@@ -53,7 +53,7 @@ def root():
 def logger():
     # Log a message in Python
     logger = logging.getLogger("This is an afternoon message")
-    app.logger.info("This is an afternoon message")
+    # app.logger.info("This is an afternoon message")
     # Log a message in the browser console (JavaScript)
     browser_log = """
     <script>
