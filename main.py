@@ -1,32 +1,8 @@
-# from flask import Flask
-
-# app = Flask(__name__)
-
-
-# @app.route("/")
-# def root():
-#     return "Hello from Space! 🚀"
-
-
-# def hello_world():
-#     prefix_google = """
-#     <!-- Google tag(gtag.js) - ->
-#     <script async src = "https://www.googletagmanager.com/gtag/js?id=G-MEC1VCR28C" > </script >
-#     <script >
-#     window.dataLayer = window.dataLayer | | []
-#     function gtag(){dataLayer.push(arguments)
-#                     }
-#     gtag('js', new Date())
-
-#     gtag('config', 'G-MEC1VCR28C')
-#     </script >
-#     """
-#     return prefix_google + "Hello World"
-
 from flask import Flask, render_template_string
+import logging
 
 app = Flask(__name__)
-
+logging.basicConfig(level=logging.DEBUG)
 @app.route("/")
 def root():
     prefix_google = """
@@ -73,5 +49,23 @@ def root():
     
     return render_template_string(html)
 
+@app.route("/logger")
+def logger():
+    # Log a message in Python
+    logger = logging.getLogger("This is an afternoon message")
+    app.logger.info("This is an afternoon message")
+    # Log a message in the browser console (JavaScript)
+    browser_log = """
+    <script>
+        console.log('This is a browser log message');
+    </script>
+    """
+    
+    return "Logger Page" + browser_log
+
+
+
+
+logging.info("This is a log message")
 if __name__ == "__main__":
     app.run(debug=True)
