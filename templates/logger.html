@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <p style="font-size: 24px; font-weight: bold;">Logger Page</p>
+    <form method="post">
+        <input type="text" id="messageTextbox" placeholder="Enter your message here">
+        <button onclick="printMessage()">Print Message</button>
+        <form method="POST">
+            <button name="action" value="Google" type="submit">Get Google Cookies</button>
+        </form>
+        <form method="POST">
+            <button name="action" value="Analytic" type="submit">Get GoogleAnalytic Cookies</button>
+        </form>
+        <div id="usercount">User Count: <span id="usercountValue">{{ usercount }}</span></div>
+        <script>
+            function printMessage() {
+                var message = document.getElementById("messageTextbox").value;
+                console.log(message);
+            }
+        </script>
+    </form>
+</body>
+</html>
