@@ -15,7 +15,7 @@ def root():
         }
         gtag('js', new Date());
         gtag('config', 'G-MEC1VCR28C');
-        
+
         // Function to send the Google Analytics event
         function sendAnalyticsEvent() {
             gtag('event', 'button_click', {
@@ -35,18 +35,18 @@ def root():
     </head>
     <body>
         <h1>Hello from Space! 🚀</h1>
-        
+
         <!-- Add a button that triggers the Google Analytics event -->
         <button onclick="sendAnalyticsEvent()">Click Me</button>
 
         <!-- Google tag (gtag.js) -->
         {prefix_google}
-        
+
         Hello World
     </body>
     </html>
     """
-    
+
     return render_template_string(html)
 
 @app.route("/logger")
@@ -60,12 +60,12 @@ def logger():
         console.log('This is a browser log message');
     </script>
     """
-    
+    logging.info("This is a log message")
     return "Logger Page" + browser_log
 
 
 
 
-logging.info("This is a log message")
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
