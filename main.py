@@ -10,6 +10,9 @@ from google.analytics.data_v1beta.types import (
 from flask import Flask, render_template_string, request, render_template
 import logging
 import requests
+from datetime import datetime,timedelta
+from pytrends.request import TrendReq
+import json
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -131,6 +134,28 @@ def logger():
     logging.info("This is a log message")
     return render_template("logger.html", usercount=user_count, browser_log=browser_log, response_message=response_message)
 
+pytrends = TrendReq(hl='en-US', tz=360)
+
+def get_google_trends(keywords, start_date, end_date):
+    pytrends.build_payload(keywords, cat=0, timeframe=f'{start_date} {end_date}', geo='', gprop='')
+    return pytrends.interest_over_time()
+
+@app.route('/trends', methods=['GET', 'POST'])
+def trends_page():
+    data = {}
+    keywords = ["Outer Wilds", "Kerbal Space Program"]  # replace with your desired keywords
+    if request.method == 'POST':
+        today = datetime.now().date()
+        start_date = today - timedelta(days=90)
+        df = get_google_trends(keywords, start_date.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
+        logging.info(df)
+        data = {
+            'dates': list(df.index.strftime('%Y-%m-%d')),
+            'values': {keyword: list(df[keyword]) for keyword in keywords}
+        }
+        print("data=",data)
+    data_json = json.dumps(data)
+    return render_template("trends.html", data_json=data_json)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
